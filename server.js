@@ -25,6 +25,11 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// For getting ip address in object form
+app.get("/api/whoami", (req, res)=>{
+  console.log(req.ip);
+  res.json({ipaddress: req.ip});
+});
 
 var port = process.env.PORT || 3000
 app.listen(port, ()=>console.log("Your app is listening on port " + port));

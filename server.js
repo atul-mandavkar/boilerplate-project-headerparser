@@ -25,10 +25,17 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// For getting ip address in object form
+var lang = "";
+// For getting ip address, prefered language in object form
 app.get("/api/whoami", (req, res)=>{
-  console.log(req.ip);
-  res.json({ipaddress: req.ip});
+  req.acceptsLanguages().forEach((ele, i)=>{
+    lang += ele;
+    if(i < req.acceptsLanguages().length - 1){
+      lang += ",";
+    }
+  })
+  console.log(lang);
+  res.json({ipaddress: req.ip, language: lang});
 });
 
 var port = process.env.PORT || 3000

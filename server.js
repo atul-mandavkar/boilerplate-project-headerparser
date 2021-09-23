@@ -25,17 +25,10 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-var lang = "";
+app.enable('trust-proxy');
 // For getting ip address, prefered language in object form
 app.get("/api/whoami", (req, res)=>{
-  req.acceptsLanguages().forEach((ele, i)=>{
-    lang += ele;
-    if(i < req.acceptsLanguages().length - 1){
-      lang += ",";
-    }
-  })
-  console.log(lang);
-  res.json({ipaddress: req.ip, language: lang});
+  res.json({ipaddress: req.ip, language: req.get('Accept-Language'), software: req.get("User-Agent")});
 });
 
 var port = process.env.PORT || 3000
